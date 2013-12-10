@@ -14,8 +14,10 @@ from django.utils.http import int_to_base36
 from inviter.models import OptOut
 from inviter.utils import invite, token_generator
 import shortuuid
-import urlparse
-
+try:
+    import urlparse as parse
+except ImportError:
+    from urllib import parse
 
 
 class InviteTest(TestCase):
@@ -95,7 +97,7 @@ class InviteTest(TestCase):
 
         resp = self.client.post(url, {})
         self.assertEqual(302, resp.status_code, resp.status_code)
-        self.assertEqual(reverse('inviter:opt-out-done'), urlparse.urlparse(resp['Location']).path)
+        self.assertEqual(reverse('inviter:opt-out-done'), parse.urlparse(resp['Location']).path)
         self.assertEqual(2, User.objects.count())
         
         user, sent = invite("foo@example.com", self.inviter)

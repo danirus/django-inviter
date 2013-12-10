@@ -1,2 +1,14 @@
-testproject/test.sqlite
+*.pyc
+*~
+*.*~
+*.zip
+*.egg-info
+*.db
+docs/_build
+build/
 dist/
+example/*.sqlite
+example/demo*/media/cache/
+example/demo*/server-static/
+example/demo*/static/
+.emacs.desktop*

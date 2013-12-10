@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 from django.conf import settings
 from django.utils.crypto import salted_hmac, constant_time_compare
 
@@ -6,7 +7,7 @@ class TokenGenerator(object):
         return self._make_token(user)
     
     def _make_token(self, user):
-        value = u'-'.join([unicode(user.id), unicode(user.last_login),
+        value = '-'.join([str(user.id), str(user.last_login),
             user.password])
         return salted_hmac(settings.SECRET_KEY, value).hexdigest()[::2]
     
